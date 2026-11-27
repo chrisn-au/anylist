@@ -16,7 +16,8 @@
   "license": "MIT",
   "author": "Max Isom <hi@maxisom.me> (https://maxisom.me/)",
   "scripts": {
-    "test": "mocha 'test/**/*.test.js'",
+    "test": "mocha 'test/unit/**/*.test.js'",
+    "test:integration": "mocha 'test/**/*.test.js'",
     "lint": "xo",
     "lint-fix": "xo --fix",
     "document": "documentation build lib/index.js -f html -o docs"
