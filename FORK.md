@@ -9,9 +9,17 @@ Fork of [codetheweb/anylist](https://github.com/codetheweb/anylist) (v0.8.6), us
 | [#56](https://github.com/codetheweb/anylist/pull/56) | Handle null meal-planning event dates | Tim Danner | `b2d919c` (cherry-picked) |
 | [#57](https://github.com/codetheweb/anylist/pull/57) | feat(item): expose recipeId, rawIngredient, and ingredients properties | arunderwood | `31f08db` (cherry-picked, conflict resolved in `lib/item.js`) |
 
-Original authorship is preserved on both commits.
+| [#58](https://github.com/codetheweb/anylist/pull/58) | reverse-engineered fix for update/create/delete recipes | Adam Ullrich | `52722b2` (cherry-picked, clean) |
 
-Version: `0.8.6-chris.1`.
+Original authorship is preserved on all commits.
+
+**Not applied from #58:** its second commit `ad939a3` ("WIP fix for meal planning") is marked WIP upstream and rewrites meal-plan date encoding to local time, which conflicts with #56's UTC date handling. Left out on purpose.
+
+Version: `0.8.6-chris.2`.
+
+## Recipe photos
+
+The protobuf `PBRecipe` has `photoIds` and `photoUrls` (repeated strings), and the library passes them through. No upload endpoint for recipe photos exists in this library, its protobufs or upstream issues/PRs, so the fork cannot store a new photo yet. Setting `photoUrls` is untested against the real AnyList service.
 
 ## Tests
 
