@@ -15,16 +15,11 @@ Original authorship is preserved on all commits.
 
 **Not applied from #58:** its second commit `ad939a3` ("WIP fix for meal planning") is marked WIP upstream and rewrites meal-plan date encoding to local time, which conflicts with #56's UTC date handling. Left out on purpose.
 
-Version: `0.8.6-chris.2`.
+Version: `0.8.6-chris.3`.
 
-## Recipe photos
+## Recipe photos (added in chris.3)
 
-The protobuf `PBRecipe` has `photoIds` and `photoUrls` (repeated strings), and the library passes them through. No upload endpoint for recipe photos exists in this library, its protobufs or upstream issues/PRs, so the fork cannot store a new photo yet. Setting `photoUrls` is untested against the real AnyList service.
-
-## Tests
-
-- `npm test`: mocked unit tests in `test/unit/` (no network, no credentials).
-- `npm run test:integration`: the upstream suite in `test/`. It logs into a real AnyList account and needs `ANYLIST_USERNAME` / `ANYLIST_PASSWORD`.
+`recipe.setPhoto(source)` uploads a JPEG or PNG `Buffer` (max 10 MB, magic bytes checked) or an https URL, which AnyList downloads itself. It sets `recipe.photoIds` to the new id, so call `save()` afterwards. The endpoints are `data/photos/upload` (multipart `filename` + `photo`) and `data/photos/upload-url` (multipart `photo_url` + `photo_id`). Implemented in `lib/photo.js` from the observed protocol. The approach was informed by the endpoints in the zkSac/anylist-js fork (which has no licence, so no code was copied). This is verified by mocked unit tests only, not against the live service.
 
 ## Syncing with upstream
 
