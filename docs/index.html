@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>anylist 0.8.6-chris.5 | Documentation</title>
+  <title>anylist 0.8.6-chris.6 | Documentation</title>
   <meta name='description' content='📋 a wrapper for AnyList&#39;s API (unoffical, reverse engineered)'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>anylist</h3>
-          <div class='mb1'><code>0.8.6-chris.5</code></div>
+          <div class='mb1'><code>0.8.6-chris.6</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -62,6 +62,16 @@
                   href='#teardown'
                   class="">
                   teardown
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#createlist'
+                  class="">
+                  createList
                   
                 </a>
                 
@@ -751,6 +761,80 @@ to exit.</p>
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='createlist'>
+      createList
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Create a new, empty shopping list (AnyList's new-shopping-list operation).
+AnyList can acknowledge without storing it, so callers should read the
+lists back before reporting success.</p>
+
+    <div class='pre p1 fill-light mt0'>createList(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    list name
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></code>:
+        the new list's identifier
+
+      
+    
   
 
   

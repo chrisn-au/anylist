@@ -69,3 +69,13 @@ describe('createList', () => {
 		assert.strictEqual(op.list.creator, 'u1');
 	});
 });
+
+describe('Ingredient getters', () => {
+	it('exposes identifier and isHeading so a recipe can be re-saved intact', () => {
+		const recipe = new Recipe({identifier: 'r1', name: 'Soup', ingredients: [
+			{identifier: 'i1', name: 'Sauce', isHeading: true},
+			{identifier: 'i2', name: 'salt', quantity: '1 tsp'},
+		]}, {client: {}, protobuf: pb, uid: 'u', recipeDataId: 'rd'});
+		assert.deepStrictEqual(recipe.ingredients.map(i => [i.identifier, i.isHeading]), [['i1', true], ['i2', false]]);
+	});
+});
