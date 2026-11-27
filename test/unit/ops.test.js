@@ -51,3 +51,21 @@ describe('AnyList operation contract', () => {
 		assert.deepStrictEqual(op.recipeIds, ['r1']);
 	});
 });
+
+describe('createList', () => {
+	it('sends new-shopping-list with a 32-hex id and the name', async () => {
+		const AnyList = require('../../lib');
+		const any = new AnyList({email: 'x', password: 'y', credentialsFile: null});
+		any.uid = 'u1';
+		const client = capture();
+		any.client = client;
+		const id = await any.createList('  Staples ');
+		assert.match(id, /^[0-9a-f]{32}$/);
+		const op = decodeOps('PBListOperationList', client.calls[0]).operations[0];
+		assert.strictEqual(client.calls[0].url, 'data/shopping-lists/update');
+		assert.strictEqual(op.metadata.handlerId, 'new-shopping-list');
+		assert.strictEqual(op.listId, id);
+		assert.strictEqual(op.list.name, 'Staples');
+		assert.strictEqual(op.list.creator, 'u1');
+	});
+});
