@@ -79,3 +79,23 @@ describe('Ingredient getters', () => {
 		assert.deepStrictEqual(recipe.ingredients.map(i => [i.identifier, i.isHeading]), [['i1', true], ['i2', false]]);
 	});
 });
+
+describe('RecipeCollection operations', () => {
+	const RecipeCollection = require('../../lib/recipe-collection');
+	it('add and remove name the collection and the recipe, and never double-add', async () => {
+		const client = capture();
+		const col = new RecipeCollection({identifier: 'c1', name: 'Mum', recipeIds: ['r0']}, {client, protobuf: pb, uid: 'u', recipeDataId: 'rd'});
+		await col.addRecipe('r1');
+		await col.addRecipe('r1');
+		await col.removeRecipe('r0');
+		assert.strictEqual(client.calls.length, 2);
+		const add = decodeOps('PBRecipeOperationList', client.calls[0]).operations[0];
+		assert.strictEqual(add.metadata.handlerId, 'add-recipes-to-collection');
+		assert.deepStrictEqual(add.recipeIds, ['r1']);
+		assert.deepStrictEqual(add.recipeCollectionIds, ['c1']);
+		const remove = decodeOps('PBRecipeOperationList', client.calls[1]).operations[0];
+		assert.strictEqual(remove.metadata.handlerId, 'remove-recipes-from-collection');
+		assert.deepStrictEqual(remove.recipeIds, ['r0']);
+		assert.deepStrictEqual(remove.recipeCollection.recipeIds, ['r1']);
+	});
+});
