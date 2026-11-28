@@ -108,7 +108,7 @@ any.login().then(async () => {
 
 
 ### Persistent Credentials Storage
-By default, the client ID and authentications tokens are encrypted with AES-256 encryption using your account password and then stored to disk. The default storage location is the `.anylist_credentials` file in the user home directory. If you wish to change the storage location, set the `credentialsFile` parameter of the `AnyList` constructor to the desired path. If you wish to disable persistent credentials storage, set the `credentialsFile` parameter to `null`.
+By default, the client ID and authentication tokens are stored on disk encrypted with AES-256-GCM, using a key derived from your account password with scrypt and a random salt. The file is written readable by its owner only (mode 0600). Files written by older versions (sha256 key, AES-256-CBC) are still read and are upgraded automatically. Anyone who can copy this file can still try to guess your password offline, so keep it private and use a strong, unique AnyList password. Nothing is written to disk if no password is given. The default storage location is the `.anylist_credentials` file in the user home directory. If you wish to change the storage location, set the `credentialsFile` parameter of the `AnyList` constructor to the desired path. If you wish to disable persistent credentials storage, set the `credentialsFile` parameter to `null`.
 
 
 ### Notes/Tips

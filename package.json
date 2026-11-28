@@ -1,8 +1,8 @@
 {
   "name": "anylist",
-  "description": "📋 a wrapper for AnyList's API (unoffical, reverse engineered)",
+  "description": "\ud83d\udccb a wrapper for AnyList's API (unoffical, reverse engineered)",
   "keywords": [
-    "📋",
+    "\ud83d\udccb",
     "anylist",
     "grocery",
     "list",
@@ -11,7 +11,7 @@
     "client",
     "recipe"
   ],
-  "version": "0.8.6-chris.9",
+  "version": "0.8.6-chris.10",
   "main": "lib/index.js",
   "license": "MIT",
   "author": "Max Isom <hi@maxisom.me> (https://maxisom.me/)",
@@ -23,13 +23,11 @@
     "document": "documentation build lib/index.js -f html -o docs"
   },
   "dependencies": {
-    "form-data": "^3.0.0",
+    "form-data": "^4.0.5",
     "got": "^11.8.6",
     "protobufjs": "5.0.3",
     "reconnecting-websocket": "^4.2.0",
-    "tough-cookie": "^4.1.3",
-    "uuid": "^3.4.0",
-    "ws": "^7.2.1"
+    "ws": "^7.5.14"
   },
   "devDependencies": {
     "chai": "^6.2.2",
@@ -61,13 +59,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codetheweb/anylist.git"
+    "url": "git+https://github.com/chrisn-au/anylist.git"
   },
   "bugs": {
-    "url": "https://github.com/codetheweb/anylist/issues"
+    "url": "https://github.com/chrisn-au/anylist/issues"
   },
-  "homepage": "https://github.com/codetheweb/anylist",
+  "homepage": "https://github.com/chrisn-au/anylist#readme",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   }
 }
