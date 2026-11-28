@@ -99,3 +99,44 @@ describe('RecipeCollection operations', () => {
 		assert.deepStrictEqual(remove.recipeCollection.recipeIds, ['r1']);
 	});
 });
+
+describe('item categories', () => {
+	const Item = require('../../lib/item');
+	it('setCategory sends the captured two-operation shape and keeps every item field', async () => {
+		const raw = pb.ListItem.decode(new pb.ListItem({
+			identifier: 'i1', listId: 'L1', name: 'Milk', categoryMatchId: 'other', category: 'Other',
+			photoIds: ['p1'], storeIds: ['s1'], productUpc: '123',
+		}).toBuffer());
+		const client = capture();
+		const item = new Item(raw, {client, protobuf: pb, uid: 'u'});
+		await item.setCategory({matchId: 'dairy', name: 'Dairy'});
+		const {operations} = decodeOps('PBListOperationList', client.calls[0]);
+		assert.deepStrictEqual(operations.map(o => o.metadata.handlerId), ['update-list-item-category-assignment', 'set-list-item-category-match-id']);
+		assert.strictEqual(operations[0].listItem.categoryMatchId, 'other', 'first op carries the item before');
+		assert.strictEqual(operations[1].listItem.categoryMatchId, 'dairy');
+		assert.strictEqual(operations[1].originalValue, 'dairy', 'new match id goes in originalValue');
+		assert.deepStrictEqual(operations[1].listItem.photoIds, ['p1'], 'fields the class does not model survive');
+		assert.deepStrictEqual(operations[1].listItem.storeIds, ['s1']);
+		assert.strictEqual(operations[1].listItem.productUpc, '123');
+		assert.strictEqual(item.categoryMatchId, 'dairy');
+	});
+
+	it('getLists attaches the active category group, using systemCategory as the match id', () => {
+		const AnyList = require('../../lib');
+		const any = new AnyList({email: 'x', password: 'y', credentialsFile: null});
+		any.lists = [{identifier: 'L1'}, {identifier: 'L2'}];
+		any._attachCategories({
+			shoppingListsResponse: {listResponses: [{listId: 'L1', categoryGroupResponses: [
+				{categoryGroup: {identifier: 'g-store', categories: [{identifier: 'x9', name: 'Aisle 9', sortIndex: 1}]}},
+				{categoryGroup: {identifier: 'g-main', categories: [
+					{identifier: 'c2', name: 'Other', systemCategory: 'other', sortIndex: 9},
+					{identifier: 'c1', name: 'Produce', systemCategory: 'produce', sortIndex: 1},
+				]}},
+			]}]},
+			listSettingsResponse: {settings: [{listId: 'L1', listCategoryGroupId: 'g-main'}]},
+		});
+		assert.strictEqual(any.lists[0].categoryGroupId, 'g-main');
+		assert.deepStrictEqual(any.lists[0].categories.map(c => [c.name, c.matchId]), [['Produce', 'produce'], ['Other', 'other']]);
+		assert.strictEqual(any.lists[1].categories, undefined, 'lists without a response are left alone');
+	});
+});

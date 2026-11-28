@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>anylist 0.8.6-chris.8 | Documentation</title>
+  <title>anylist 0.8.6-chris.10 | Documentation</title>
   <meta name='description' content='📋 a wrapper for AnyList&#39;s API (unoffical, reverse engineered)'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>anylist</h3>
-          <div class='mb1'><code>0.8.6-chris.8</code></div>
+          <div class='mb1'><code>0.8.6-chris.10</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -39,6 +39,16 @@
               
                 
                 <li><a
+                  href='#sanitizeautherror'
+                  class="">
+                  sanitizeAuthError
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#formdataasbuffer'
                   class="">
                   formDataAsBuffer
@@ -52,6 +62,16 @@
                   href='#login'
                   class="">
                   login
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#_refreshtokens'
+                  class="">
+                  _refreshTokens
                   
                 </a>
                 
@@ -199,6 +219,16 @@
               
                 
                 <li><a
+                  href='#eventanylistremote-change'
+                  class="">
+                  AnyList#remote-change
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#eventanylistlists-update'
                   class="">
                   AnyList#lists-update
@@ -284,6 +314,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#uuid'
+                  class="">
+                  uuid
+                  
+                </a>
                 
                 </li>
               
@@ -609,6 +649,69 @@ instance per account.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='sanitizeautherror'>
+      sanitizeAuthError
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Auth endpoints carry the password or tokens in the request; keep them out of thrown errors.</p>
+
+    <div class='pre p1 fill-light mt0'>sanitizeAuthError(error: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>error</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='formdataasbuffer'>
       formDataAsBuffer
     </h3>
@@ -716,6 +819,58 @@ in the constructor.</p>
         </div>
       
     </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='_refreshtokens'>
+      _refreshTokens
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Refresh the access token. Concurrent callers share one refresh: AnyList
+rotates the refresh token, so parallel refreshes would invalidate each
+other and fall back to sending the password again.</p>
+
+    <div class='pre p1 fill-light mt0'>_refreshTokens()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
   
 
   
@@ -1742,6 +1897,58 @@ lists back before reporting success.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='eventanylistremote-change'>
+      AnyList#remote-change
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Remote change event (refreshOnPush: false): lists changed elsewhere,
+nothing re-fetched. Lets callers batch fetches to stay under AnyList's
+sync rate limit.</p>
+
+    <div class='pre p1 fill-light mt0'>AnyList#remote-change</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='eventanylistlists-update'>
       AnyList#lists-update
     </h3>
@@ -2485,6 +2692,56 @@ Must set <code>isFavorite=true</code> if editing "favorites" list</p>
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='uuid'>
+      uuid
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>A 32-character hex id, the format AnyList uses.</p>
+
+    <div class='pre p1 fill-light mt0'>uuid()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
