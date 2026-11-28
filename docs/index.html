@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>anylist 0.8.6-chris.10 | Documentation</title>
+  <title>anylist 0.8.6-chris.11 | Documentation</title>
   <meta name='description' content='📋 a wrapper for AnyList&#39;s API (unoffical, reverse engineered)'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>anylist</h3>
-          <div class='mb1'><code>0.8.6-chris.10</code></div>
+          <div class='mb1'><code>0.8.6-chris.11</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -252,6 +252,12 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
+                        href='#listcategories'
+                        class='regular pre-open'>
+                        #categories
+                      </a></li>
+                      
+                      <li><a
                         href='#listadditem'
                         class='regular pre-open'>
                         #addItem
@@ -302,6 +308,18 @@
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#itemcategory'
+                        class='regular pre-open'>
+                        #category
+                      </a></li>
+                      
+                      <li><a
+                        href='#itemsetcategory'
+                        class='regular pre-open'>
+                        #setCategory
+                      </a></li>
                       
                       <li><a
                         href='#itemsave'
@@ -2097,6 +2115,57 @@ The instance's <code>.lists</code> are updated before the event fires.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
+    <div class='border-bottom' id='listcategories'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>categories</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Categories of this list's active category group:
+{identifier, name, matchId, groupId, sortIndex}. Items point at a
+category by matchId (Item.categoryMatchId). Filled in by getLists().</p>
+
+    <div class='pre p1 fill-light mt0'>categories</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='listadditem'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2618,6 +2687,161 @@ Must set <code>isFavorite=true</code> if editing "favorites" list</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
+    <div class='border-bottom' id='itemcategory'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>category</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Category name stored on the item itself (may be stale; prefer the list's categories by matchId).</p>
+
+    <div class='pre p1 fill-light mt0'>category</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='itemsetcategory'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setCategory($0)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Move this item to another category on its list, the way AnyList's web app
+does: two operations carrying the complete item, before and after, with the
+new category match id in originalValue. AnyList can acknowledge without
+applying it, so read the list back to confirm.</p>
+
+    <div class='pre p1 fill-light mt0'>setCategory($0: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>$0</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+            = <code>{}</code>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.matchId</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.name</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='itemsave'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2631,6 +2855,8 @@ Must set <code>isFavorite=true</code> if editing "favorites" list</p>
   
 
   <p>Save local changes to item to
+AnyList's API.	/**
+Save local changes to item to
 AnyList's API.
 Must set <code>isFavorite=true</code> if editing "favorites" list</p>
 

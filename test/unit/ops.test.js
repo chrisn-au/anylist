@@ -140,3 +140,39 @@ describe('item categories', () => {
 		assert.strictEqual(any.lists[1].categories, undefined, 'lists without a response are left alone');
 	});
 });
+
+describe('Item.save', () => {
+	const Item = require('../../lib/item');
+	it('sends each changed field once, never a nameless op, and does not resend earlier changes', async () => {
+		const client = capture();
+		const item = new Item({identifier: 'i1', name: 'Milk'}, {client, protobuf: pb, uid: 'u'});
+		item.listId = 'L1';
+		item.name = 'Oat milk';
+		item.name = 'Oat milk 2L';
+		await item.save();
+		item.checked = true;
+		await item.save();
+		await item.save();
+		const handlers = client.calls.map(c => decodeOps('PBListOperationList', c).operations.map(o => o.metadata.handlerId));
+		assert.deepStrictEqual(handlers, [['set-list-item-name'], ['set-list-item-checked']]);
+	});
+});
+
+describe('checkProcessed', () => {
+	const {checkProcessed} = require('../../lib/processed');
+	const opList = ids => ({operations: ids.map(operationId => ({metadata: {operationId}}))});
+	const reply = ids => ({body: new pb.PBEditOperationResponse({processedOperations: ids}).toBuffer()});
+
+	it('verifies when every sent operation is processed', () => {
+		assert.deepStrictEqual(checkProcessed(pb, reply(['a', 'b']), opList(['a', 'b'])), {verified: true});
+	});
+
+	it('throws when AnyList leaves one of ours out', () => {
+		assert.throws(() => checkProcessed(pb, reply(['a']), opList(['a', 'b'])), e => e.code === 'ANYLIST_NOT_PROCESSED');
+	});
+
+	it('is unverified, not an error, when the reply is empty or unreadable', () => {
+		assert.deepStrictEqual(checkProcessed(pb, {body: Buffer.alloc(0)}, opList(['a'])), {verified: false});
+		assert.deepStrictEqual(checkProcessed(pb, {}, opList(['a'])), {verified: false});
+	});
+});
